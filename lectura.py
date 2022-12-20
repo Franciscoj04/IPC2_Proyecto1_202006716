@@ -88,9 +88,15 @@ class Lista_Doble:
                             #print(movimientos)
                         
                         elif subelemento.tag == 'tamaño': # si es la etiqueta <tamaño>
-
+                            
                             tamaño = int(subelemento.text) # la propiedad "text" me devuelve un cadena con int() lo convierto a entero
                             #print(tamaño)
+                            if tamaño>30:
+                                print("Error, el tamanio excede el limite permitido")
+                            if tamaño % 5 == 0:
+                                print("")
+                            else:
+                                print("Error, el tamanio ingresado no es multiplo de 5")
 
                         elif subelemento.tag == 'puzzle': # si es la etiqueta <puzzle>
 
