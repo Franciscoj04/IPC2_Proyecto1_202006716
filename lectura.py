@@ -19,11 +19,9 @@ class Lista_Doble:
         self.size += 1 
 
         if self.primero == None: 
-
             self.primero = nuevo
             self.ultimo = nuevo
         else: 
-
             self.ultimo.siguiente = nuevo 
             nuevo.anterior = self.ultimo 
             self.ultimo = nuevo 
@@ -40,7 +38,7 @@ class Lista_Doble:
             temp = temp.siguiente 
     
     def cargarJugadores(self):
-
+        puntos=0
         actual = self.primero
 
         #Lista para los jugadores
@@ -86,6 +84,15 @@ class Lista_Doble:
 
                             movimientos = int(subelemento.text) # la propiedad "text" me devuelve un cadena con int() lo convierto a entero
                             #print(movimientos)
+                            if movimientos<5:
+                                puntos+=100
+                            elif movimientos>5 and movimientos<10:
+                                puntos+=75
+                            elif movimientos>10 and movimientos<15:
+                                puntos+=50
+                            elif movimientos>15 and movimientos<20:
+                                puntos+=25
+                            
                         
                         elif subelemento.tag == 'tamaño': # si es la etiqueta <tamaño>
                             
@@ -97,6 +104,27 @@ class Lista_Doble:
                                 print("")
                             else:
                                 print("Error, el tamanio ingresado no es multiplo de 5")
+                            if tamaño==5:
+                                puntos+=25
+                            elif tamaño==10:
+                                puntos+=50
+                            elif tamaño==15:
+                                puntos+=75
+                            elif tamaño==20:
+                                puntos+=100
+                            elif tamaño==25:
+                                puntos+=125
+                            elif tamaño==30:
+                                puntos+=150
+                        
+                        elif subelemento.tag == 'figura': # si es la etiqueta <figura>
+                            figura = subelemento.text
+                            if figura=='arbol':
+                                puntos+=250
+                            elif figura=='estrella de Belén':
+                                puntos+=500
+                            elif figura=='regalo':
+                                puntos+=100
 
                         elif subelemento.tag == 'puzzle': # si es la etiqueta <puzzle>
 
@@ -113,15 +141,15 @@ class Lista_Doble:
                                     celdas.insertar(jugador) # inserto un jugador en la lista celdas 
 
                 #print('-----------------------------------------')
-                jugadors = Jugador(nombreE, edad, movimientos, tamaño, celdas) # creo un objeto jugador
+                jugadors = Jugador(nombreE, edad, movimientos,figura, puntos, tamaño, celdas) # creo un objeto jugador
                 listaJugadores.insertar(jugadors) # inserto un jugadors en la lista jugadore
 
                 #limpiar la lista celdas
                 celdas = Lista_Doble()
 
             actual = actual.siguiente #pasamos a la siguiente ruta un archivo xml, siempre que hayamos agregado mas.
-
         return listaJugadores # retornamos la lista de jugadores
+        
 
     def mostrarJugadores(self):
 
@@ -129,7 +157,7 @@ class Lista_Doble:
 
         while temp != None:
 
-            print('------------------------------------\njugador: {}\nEdad: {}\nmovimientos: {}\ntamaño: {}\n\npuzzle:\n'.format(temp.dato.nombre, temp.dato.edad, temp.dato.movimientos, temp.dato.tamaño)) 
+            print('------------------------------------\njugador: {}\nEdad: {}\nmovimientos: {}\ntamaño: {}\nfigura: {}\npuntos: {}\n\npuzzle:\n'.format(temp.dato.nombre, temp.dato.edad, temp.dato.movimientos, temp.dato.tamaño, temp.dato.figura, temp.dato.puntos)) 
 
             temp.dato.celdas.mostrarRejillas()
 
@@ -146,4 +174,5 @@ class Lista_Doble:
 
             temp = temp.siguiente 
 
+    #por dimension, 25pts por cada 5x5, por cantidad de movimientos = menos de 5 movimientos son 100pts, menos de 10 movimientos son 75pts, menos de 15 movimeintos son 50pts, menos de 20 son 25pts, mas de 20 0 pts, por figura estrella=500, 250 por arbol de navidad y 100 por regalo
    
